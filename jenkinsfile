@@ -36,15 +36,11 @@ pipeline {
         }
     }
     post {
-
 	    success {
 		    slackSend color: "good", message: "Build #${BUILD_NUMBER} run successfuly"
-            
-
-	     failure {
+        }     
+        failure {
 		     slackSend color: "danger", message: "Build #${BUILD_NUMBER}  failed"
-             
-                          }
+        }      
         }
     }
-}

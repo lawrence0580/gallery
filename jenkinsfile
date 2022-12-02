@@ -27,21 +27,21 @@ pipeline {
              }
          }
 
-        // stage('Deploy to Heroku') {
-        //   steps {
-        //       withCredentials([usernameColonPassword(credentialsId: 'Heroku', variable: 'HEROKU_CREDENTIALS' )]){
-        //             sh "git push https://${HEROKU_CREDENTIALS}@git.heroku.com/rocky-tor-72690.git master"
-        //       }
-        //   }
+         stage('Deploy to Heroku') {
+           steps {
+               withCredentials([usernameColonPassword(credentialsId: 'Heroku', variable: 'HEROKU_CREDENTIALS' )]){
+                     sh "git push https://${HEROKU_CREDENTIALS}@git.heroku.com/rocky-tor-72690.git master"
+               }
+           }
         }
     }
     post {
 
 	    success {
 		    slackSend color: "good", message: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} success. See ${live_site} for details."
-	    // failure {
-		//     slackSend color: "danger", message: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} failed. See ${env.BUILD_URL} for details."
-        //     }
+	     failure {
+		     slackSend color: "danger", message: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} failed. See ${env.BUILD_URL} for details."
+             }
         }
     }
 }

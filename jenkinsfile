@@ -38,10 +38,13 @@ pipeline {
     post {
 
 	    success {
-		    slackSend color: "good", message: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} success. See ${live_site} for details."
+		    slackSend color: "good", message: "Build #${BUILD_NUMBER} run successfuly"
+            
+
 	     failure {
-		     slackSend color: "danger", message: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} failed. See ${env.BUILD_URL} for details."
-             }
+		     slackSend color: "danger", message: "Build #${BUILD_NUMBER}  failed"
+             
+                          }
         }
     }
 }
